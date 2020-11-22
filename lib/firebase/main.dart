@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder(
-      stream: Firestore.instance.collection('baby').snapshots(),
+      stream: FirebaseFirestore.instance.collection('baby').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
         return _buildList(context, snapshot.data.documents);
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
           trailing: Text(record.votes.toString()),
           onTap: () {
             print(record);
-            record.reference.updateData({'votes': FieldValue.increment(1)});
+            record.reference.update({'votes': FieldValue.increment(1)});
           },
         ),
       ),
