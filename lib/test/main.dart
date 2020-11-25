@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_codelab_study/test/models/favorites.dart';
+import 'package:flutter_codelab_study/test/screens/FavoritesPage.dart';
 import 'package:flutter_codelab_study/test/screens/home.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,7 @@ class TestingApp extends StatelessWidget {
         ),
         routes: {
           HomePage.routeName: (context) => HomePage(),
+          FavoritesPage.routeName: (context) => FavoritesPage(),
         },
         initialRoute: HomePage.routeName,
       ),

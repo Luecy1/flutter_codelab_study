@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_codelab_study/test/models/favorites.dart';
+import 'package:flutter_codelab_study/test/screens/FavoritesPage.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,14 +14,17 @@ class HomePage extends StatelessWidget {
         actions: [
           FlatButton.icon(
             onPressed: () {
-              // Navigator.pushNamed(context, );
+              Navigator.pushNamed(context, FavoritesPage.routeName);
             },
             icon: Icon(Icons.favorite_border),
             label: Text('Favorites'),
           ),
         ],
       ),
-      body: ListView.builder(itemBuilder: (context, index) => ItemTile(itemNo: index)),
+      body: ListView.builder(
+        itemCount: Colors.primaries.length,
+        itemBuilder: (context, index) => ItemTile(itemNo: index),
+      ),
     );
   }
 }
@@ -47,7 +51,21 @@ class ItemTile extends StatelessWidget {
         icon: favoritesList.items.contains(itemNo)
             ? Icon(Icons.favorite)
             : Icon(Icons.favorite_border),
-        onPressed: () {},
+        onPressed: () {
+          if (!favoritesList.items.contains(itemNo)) {
+            favoritesList.add(itemNo);
+          } else {
+            favoritesList.remove(itemNo);
+          }
+
+          final snackBar = SnackBar(
+            content: Text(favoritesList.items.contains(itemNo)
+                ? 'Added to favorites.'
+                : 'Removed from favorites.'),
+            duration: Duration(seconds: 1),
+          );
+          Scaffold.of(context).showSnackBar(snackBar);
+        },
       ),
     );
   }
