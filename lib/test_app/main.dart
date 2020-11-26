@@ -1,10 +1,11 @@
 // https://codelabs.developers.google.com/codelabs/flutter-app-testing/
 
 import 'package:flutter/material.dart';
-import 'package:flutter_codelab_study/test/models/favorites.dart';
-import 'package:flutter_codelab_study/test/screens/FavoritesPage.dart';
-import 'package:flutter_codelab_study/test/screens/home.dart';
 import 'package:provider/provider.dart';
+
+import 'models/favorites.dart';
+import 'screens/FavoritesPage.dart';
+import 'screens/home.dart';
 
 void main() {
   runApp(TestingApp());
