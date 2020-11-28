@@ -11,7 +11,7 @@ class Favorites extends ChangeNotifier {
   }
 
   void remove(int itemNo) {
-    _favoriteItems.removeAt(itemNo);
+    _favoriteItems.remove(itemNo);
     notifyListeners();
   }
 }
