@@ -39,21 +39,7 @@ Future<void> initNotification() async {
     ..onIosSettingsRegistered.listen((settings) {})
     ..configure(
       onMessage: (Map<String, dynamic> message) async {},
-      onBackgroundMessage: (Map<String, dynamic> message) async {
-        if (!Platform.isAndroid) {
-          return;
-        }
-
-        if (message.containsKey('data')) {
-          final data = message['data'];
-        }
-
-        if (message.containsKey('notification')) {
-          final notification = message['notification'];
-        }
-
-        print('onBackground :$message');
-      },
+      onBackgroundMessage: myBackgroundMessageHandler, // for android only
       onLaunch: (Map<String, dynamic> message) async {
         print('onLaunch :$message');
       },
@@ -61,4 +47,20 @@ Future<void> initNotification() async {
         print('onResume :$message');
       },
     );
+}
+
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  if (!Platform.isAndroid) {
+    return;
+  }
+
+  if (message.containsKey('data')) {
+    final data = message['data'];
+  }
+
+  if (message.containsKey('notification')) {
+    final notification = message['notification'];
+  }
+
+  print('onBackground :$message');
 }
