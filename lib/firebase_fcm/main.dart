@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-main() async {
+main() {
   runApp(MaterialApp(
     home: Scaffold(
       appBar: AppBar(),
@@ -21,7 +21,16 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return FutureBuilder<String>(
+      future: getToken(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          return Text(snapshot.data);
+        }
+        return Container();
+      },
+    );
   }
 
   @override
@@ -29,6 +38,11 @@ class _MyPageState extends State<MyPage> {
     super.initState();
     initNotification();
   }
+}
+
+Future<String> getToken() async {
+  var token = await _firebaseMessaging.getToken();
+  return token;
 }
 
 FirebaseMessaging _firebaseMessaging;
