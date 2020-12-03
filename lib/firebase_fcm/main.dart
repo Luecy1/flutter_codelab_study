@@ -70,10 +70,12 @@ Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
 
   if (message.containsKey('data')) {
     final data = message['data'];
+    print(data);
   }
 
   if (message.containsKey('notification')) {
     final notification = message['notification'];
+    print(notification);
   }
 
   print('onBackground :$message');
