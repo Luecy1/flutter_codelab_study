@@ -52,7 +52,9 @@ Future<void> initNotification() async {
     ..requestNotificationPermissions()
     ..onIosSettingsRegistered.listen((settings) {})
     ..configure(
-      onMessage: (Map<String, dynamic> message) async {},
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
       onBackgroundMessage: myBackgroundMessageHandler, // for android only
       onLaunch: (Map<String, dynamic> message) async {
         print('onLaunch :$message');
@@ -61,6 +63,12 @@ Future<void> initNotification() async {
         print('onResume :$message');
       },
     );
+
+  _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true));
+  _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings setting) {
+    debugPrint('Settings registered: $setting');
+  });
 }
 
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
@@ -69,12 +77,12 @@ Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
   }
 
   if (message.containsKey('data')) {
-    final data = message['data'];
+    final dynamic data = message['data'];
     print(data);
   }
 
   if (message.containsKey('notification')) {
-    final notification = message['notification'];
+    final dynamic notification = message['notification'];
     print(notification);
   }
 
